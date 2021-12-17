@@ -1,0 +1,53 @@
+# import necessary libraries
+
+import random
+import pandas as pd
+from datetime import date
+
+# the roundom seed which is the date for new roll out
+random.seed(0)
+
+# make a list of 8 random numbers from 1 to 71
+
+#pick 8 random numbers from 1 - 71
+drill_list = random.sample(range(1,71), 8)
+
+# multiply the list by three so you can practice a drill atleast three times in a week
+new_list = drill_list * 3
+
+# seperate the new_list into periods
+period_1 = new_list[0:7]
+period_2 = new_list[7:14]
+period_3 = new_list[14:21]
+
+# Create a dataframe
+
+# create days of the week list
+
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
+
+# then the dataframe
+
+drill_table = pd.DataFrame(days,columns = ["Day/Period"])
+
+# add other columns to the just created data frame
+
+drill_table["Period 1"] =  period_1
+drill_table["Period 2"] =  period_2
+drill_table["Period 3"] =  period_3
+
+# set the index of my drill table to Day/Period
+
+drill_table.set_index("Day/Period", inplace = True)
+print("\n", drill_table)
+
+
+#picking the exact date today time table
+
+weekday_map =  {0:"Monday", 1:"Tuesday", 2:"Wednessday", 3:"Thursday", 4:"Friday", 5:"Saturday", 6:"Sunday"}
+
+
+Today_drill = drill_table[drill_table.index == weekday_map[date.today().weekday()]]
+
+print("\n","\n","DRILLS TO PRACTICE FOR TODAY: ",weekday_map[date.today().weekday()],",", date.today(), "\n","\n",Today_drill)
+
